@@ -1,0 +1,19 @@
+html {
+    width: max-content;
+    height: auto;
+}
+
+.bookCovers {
+    float: left;
+}
+
+.card {
+    float: left;
+    padding-right: 0;
+}
+
+.btn {
+    background-color: blue;
+    color: white;
+
+}
