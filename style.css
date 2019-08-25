@@ -4,6 +4,14 @@ html {
     margin-left: 20px;
 }
 
+.header {
+    width:660px;
+}
+
+.jumbotron {
+    margin-left: -20px;
+}
+
 .card {
     float: left;
     padding-right: 0;

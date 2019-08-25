@@ -1,3 +1,54 @@
+class HeaderConomponent {
+    constructor() {
+        this.template = `
+     
+    <header>    
+        <div class="jumbotron">
+            <h1 class="display-4">My Favorite Books!</h1>
+        </div>
+    </header>
+        `
+    }
+}
+
+class BtnComponent {
+    constructor() {
+        this.template = `
+        <a href="#" id = "showPlot" class="btn btn-primary">Show Plot</a>
+        `
+    }
+}
+
+// class BtnEventComponent {
+//     constructor() {
+//         document.addEventListener("click", function(e) {
+//            if(e.target && e.target.id == "showPlot") {
+//                this.template = `
+//                <a href="#" id = "hidePlot" class="btn btn-danger">Hide Plot</a>
+//                `
+//            } else if(e.target && e.target.id !== "showplot"){
+//             this.template = `
+//             <a href="#" id = "showPlot" class="btn btn-primary">Show Plot</a>
+//             `
+//            }
+//         }
+//     }
+// }
+
+
+class PlotComponent {
+    constructor(plot) {
+        this.plot = plot;
+        this.template = `
+        </div>
+        <div class=plotBox">
+            <h4> Description </h4>
+            <p class="card-text">${this.plot}</p>
+        </div>
+        `
+    }
+}
+        
 class BookComponent {
     constructor(cover, title) {
         this.cover = cover;
@@ -7,16 +58,19 @@ class BookComponent {
         <img class="card-img-top" src=${this.cover} alt="coverArt"> 
             <div class="card-body">
             <h5 class="card-title">${this.title}</h5>
+            ${new BtnComponent().template}
             </div>
         </div>
         `
     }
 }
-  
-  class BookListComponent {
+
+
+
+class BookListComponent {
     template = `
       <div>
-        ${new BookComponent("NorseMythology.jpg", "Norse Mythology").template}
+        ${new BookComponent("NorseMythology.jpg", "Norse Mythology", "Test").template}
         ${new BookComponent("Fables.jpg", "Fables The Deluxe Edition Book One").template}
         ${new BookComponent("leMorte.jpg", "Le Morte D'Arthur").template}
         ${new BookComponent("RedOctober.jpg", "The Hunt for Red October").template}
@@ -25,7 +79,7 @@ class BookComponent {
     `
   }
    
-  document.getElementById('root').innerHTML = `${new BookListComponent().template}`;
+  document.getElementById('root').innerHTML = `${new HeaderConomponent().template} ${new BookListComponent().template}`;
 
 
 // //INITIAL PAGE LOAD - ALL BOOKS
