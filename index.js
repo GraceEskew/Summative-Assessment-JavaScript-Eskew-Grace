@@ -1,7 +1,6 @@
 class HeaderConomponent {
     constructor() {
         this.template = `
-     
     <header>    
         <div class="jumbotron">
             <h1 class="display-4">My Favorite Books!</h1>
@@ -43,7 +42,7 @@ class PlotComponent {
         </div>
         <div class=plotBox">
             <h4> Description </h4>
-            <p class="card-text">${this.plot}</p>
+            <p class="card-text">${this.plot}</p>   
         </div>
         `
     }
@@ -66,11 +65,13 @@ class BookComponent {
 }
 
 
+/*I know I can make a main class component that combines all my classes together. Currently having an issue that when I
+do, it forces one of the books to next row. Will troubleshoot after event handler issue is resolved.*/
 
 class BookListComponent {
     template = `
       <div>
-        ${new BookComponent("NorseMythology.jpg", "Norse Mythology", "Test").template}
+        ${new BookComponent("NorseMythology.jpg", "Norse Mythology").template}
         ${new BookComponent("Fables.jpg", "Fables The Deluxe Edition Book One").template}
         ${new BookComponent("leMorte.jpg", "Le Morte D'Arthur").template}
         ${new BookComponent("RedOctober.jpg", "The Hunt for Red October").template}
@@ -78,11 +79,42 @@ class BookListComponent {
       </div>
     `
   }
+
+  class PlotListComponent {
+      template = `
+      <div>
+      ${new PlotComponent("TEST 1").template}
+      ${new PlotComponent("TEST 2").template}
+      ${new PlotComponent("TEST 3").template}
+      ${new PlotComponent("TEST 4").template}
+      ${new PlotComponent("TEST 5").template}
+      </div>
+      `
+  }
    
   document.getElementById('root').innerHTML = `${new HeaderConomponent().template} ${new BookListComponent().template}`;
+  document.getElementById('descript').innerHTML = `${new PlotListComponent().template}`
 
 
-// //INITIAL PAGE LOAD - ALL BOOKS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// //INITIAL PAGE LOAD - ALL BOOKS (Code is demo'ing the very, very long way)
 // document.getElementById("root").innerHTML= `
 
 //     <div class="card" style="width: 14rem;">
