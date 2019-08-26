@@ -13,7 +13,7 @@ class HeaderConomponent {
 class BtnComponent {
     constructor() {
         this.template = `
-        <a href="#" id = "showPlot" class="btn btn-primary">Show Plot</a>
+        <a href="#" id = "${this.id}" class="btn btn-primary">Show Plot</a>
         `
     }
 }
@@ -49,7 +49,8 @@ class PlotComponent {
 }
         
 class BookComponent {
-    constructor(cover, title) {
+    constructor(id, cover, title) {
+        this.id = id;
         this.cover = cover;
         this.title = title;
         this.template = `
@@ -71,26 +72,28 @@ do, it forces one of the books to next row. Will troubleshoot after event handle
 class BookListComponent {
     template = `
       <div>
-        ${new BookComponent("NorseMythology.jpg", "Norse Mythology").template}
-        ${new BookComponent("Fables.jpg", "Fables The Deluxe Edition Book One").template}
-        ${new BookComponent("leMorte.jpg", "Le Morte D'Arthur").template}
-        ${new BookComponent("RedOctober.jpg", "The Hunt for Red October").template}
-        ${new BookComponent("Fellowship.jpg", "The Fellowship of The Ring").template}
+        ${new BookComponent(1, "NorseMythology.jpg", "Norse Mythology").template}
+        ${new BookComponent(2, "Fables.jpg", "Fables The Deluxe Edition Book One").template}
+        ${new BookComponent(3, "leMorte.jpg", "Le Morte D'Arthur").template}
+        ${new BookComponent(4, "RedOctober.jpg", "The Hunt for Red October").template}
+        ${new BookComponent(5, "Fellowship.jpg", "The Fellowship of The Ring").template}
       </div>
     `
-  }
+}
 
-  class PlotListComponent {
-      template = `
-      <div>
-      ${new PlotComponent("TEST 1").template}
-      ${new PlotComponent("TEST 2").template}
-      ${new PlotComponent("TEST 3").template}
-      ${new PlotComponent("TEST 4").template}
-      ${new PlotComponent("TEST 5").template}
-      </div>
-      `
-  }
+//USE FILTER WITH ID TO PICK WHICH PLOT TO GRAB
+
+class PlotListComponent {
+    template = `
+    <div>
+    ${new PlotComponent("TEST 1").template}
+    ${new PlotComponent("TEST 2").template}
+    ${new PlotComponent("TEST 3").template}
+    ${new PlotComponent("TEST 4").template}
+    ${new PlotComponent("TEST 5").template}
+    </div>
+    `
+}
    
   document.getElementById('root').innerHTML = `${new HeaderConomponent().template} ${new BookListComponent().template}`;
   document.getElementById('descript').innerHTML = `${new PlotListComponent().template}`
@@ -567,7 +570,7 @@ class BookListComponent {
 
 // //BUTTONS - back up plan
 // document.addEventListener('click', function(e) {
-//     if(e.targer && e.targer.id == "plotBtn") {
+//     if(e.target && e.target.id == "plotBtn") {
 //         if(document.getElementById("plotBtn").textContent == "Hide Plot") {
 //             document.getElementById("card-text").innerHTML = ""
 //             document.getElementById("plotBtn").innerHTML = "Show Plot"
