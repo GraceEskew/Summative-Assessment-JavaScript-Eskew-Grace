@@ -13,23 +13,22 @@ class HeaderComponent {
 class BtnComponent {
     constructor() {
         this.template = `
-        <a href="#" id = "showPlot" class="btn btn-primary">Show Plot</a>
+        <a href="#" id = ${this.openId} class="btn btn-primary">Show Plot</a>
         `
     }
 }
 
-//Evaluates as true, but still not getting the color change upon clicking as is
-//Secondary: if I ad ${this.id} to the above constructor - do I use this.plot down
-//below?
+// trying to add in the IDs. Right now the boolean won't work because things are
+//mismatched. 
 document.addEventListener("click", function(e) {
-    console.log(e.target && e.target.id == "showPlot")
-   if(e.target && e.target.id == "showPlot") {
+    console.log(e.target && e.target.id == this.openId)
+   if(e.target && e.target.id == this.openId) {
        this.template = `
-       <a href="#" id = "hidePlot" class="btn btn-danger">Hide Plot</a>
+       <a href="#" id = ${this.closeId} class="btn btn-danger">Hide Plot</a>
        `
-   } else if(e.target && e.target.id !== "showplot"){
+   } else if(e.target && e.target.id !== this.openId){
     this.template = `
-    <a href="#" id = "showPlot" class="btn btn-primary">Show Plot</a>
+    <a href="#" id = ${this.openId} class="btn btn-primary">Show Plot</a>
     `
    }
 })
@@ -48,8 +47,9 @@ class PlotComponent {
 }
         
 class BookComponent {
-    constructor(id, cover, title) {
-        this.id = id;
+    constructor(openId, closeId, cover, title) {
+        this.openId = openId;
+        this.closeId = closeId;
         this.cover = cover;
         this.title = title;
         this.template = `
@@ -71,11 +71,11 @@ do, it forces one of the books to next row. Will troubleshoot after event handle
 class BookListComponent {
     template = `
       <div>
-        ${new BookComponent("1", "NorseMythology.jpg", "Norse Mythology").template}
-        ${new BookComponent("2", "Fables.jpg", "Fables The Deluxe Edition Book One").template}
-        ${new BookComponent("3", "leMorte.jpg", "Le Morte D'Arthur").template}
-        ${new BookComponent("4", "RedOctober.jpg", "The Hunt for Red October").template}
-        ${new BookComponent("5", "Fellowship.jpg", "The Fellowship of The Ring").template}
+        ${new BookComponent("1A", "1B", "NorseMythology.jpg", "Norse Mythology").template}
+        ${new BookComponent("2A", "2B", "Fables.jpg", "Fables The Deluxe Edition Book One").template}
+        ${new BookComponent("3A", "3A", "leMorte.jpg", "Le Morte D'Arthur").template}
+        ${new BookComponent("4A", "4B", "RedOctober.jpg", "The Hunt for Red October").template}
+        ${new BookComponent("5A", "5B", "Fellowship.jpg", "The Fellowship of The Ring").template}
       </div>
     `
 }
