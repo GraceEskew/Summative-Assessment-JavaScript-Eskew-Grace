@@ -1,4 +1,4 @@
-class HeaderConomponent {
+class HeaderComponent {
     constructor() {
         this.template = `
     <header>    
@@ -13,27 +13,26 @@ class HeaderConomponent {
 class BtnComponent {
     constructor() {
         this.template = `
-        <a href="#" id = "${this.id}" class="btn btn-primary">Show Plot</a>
+        <a href="#" id = "showPlot" class="btn btn-primary">Show Plot</a>
         `
     }
 }
 
-// class BtnEventComponent {
-//     constructor() {
-//         document.addEventListener("click", function(e) {
-//            if(e.target && e.target.id == "showPlot") {
-//                this.template = `
-//                <a href="#" id = "hidePlot" class="btn btn-danger">Hide Plot</a>
-//                `
-//            } else if(e.target && e.target.id !== "showplot"){
-//             this.template = `
-//             <a href="#" id = "showPlot" class="btn btn-primary">Show Plot</a>
-//             `
-//            }
-//         }
-//     }
-// }
-
+//Evaluates as true, but still not getting the color change upon clicking as is
+//Secondary: if I ad ${this.id} to the above constructor - do I use this.plot down
+//below?
+document.addEventListener("click", function(e) {
+    console.log(e.target && e.target.id == "showPlot")
+   if(e.target && e.target.id == "showPlot") {
+       this.template = `
+       <a href="#" id = "hidePlot" class="btn btn-danger">Hide Plot</a>
+       `
+   } else if(e.target && e.target.id !== "showplot"){
+    this.template = `
+    <a href="#" id = "showPlot" class="btn btn-primary">Show Plot</a>
+    `
+   }
+})
 
 class PlotComponent {
     constructor(plot) {
@@ -72,11 +71,11 @@ do, it forces one of the books to next row. Will troubleshoot after event handle
 class BookListComponent {
     template = `
       <div>
-        ${new BookComponent(1, "NorseMythology.jpg", "Norse Mythology").template}
-        ${new BookComponent(2, "Fables.jpg", "Fables The Deluxe Edition Book One").template}
-        ${new BookComponent(3, "leMorte.jpg", "Le Morte D'Arthur").template}
-        ${new BookComponent(4, "RedOctober.jpg", "The Hunt for Red October").template}
-        ${new BookComponent(5, "Fellowship.jpg", "The Fellowship of The Ring").template}
+        ${new BookComponent("1", "NorseMythology.jpg", "Norse Mythology").template}
+        ${new BookComponent("2", "Fables.jpg", "Fables The Deluxe Edition Book One").template}
+        ${new BookComponent("3", "leMorte.jpg", "Le Morte D'Arthur").template}
+        ${new BookComponent("4", "RedOctober.jpg", "The Hunt for Red October").template}
+        ${new BookComponent("5", "Fellowship.jpg", "The Fellowship of The Ring").template}
       </div>
     `
 }
@@ -95,7 +94,7 @@ class PlotListComponent {
     `
 }
    
-  document.getElementById('root').innerHTML = `${new HeaderConomponent().template} ${new BookListComponent().template}`;
+  document.getElementById('root').innerHTML = `${new HeaderComponent().template} ${new BookListComponent().template}`;
   document.getElementById('descript').innerHTML = `${new PlotListComponent().template}`
 
 
@@ -112,12 +111,7 @@ class PlotListComponent {
 
 
 
-
-
-
-
-
-// //INITIAL PAGE LOAD - ALL BOOKS (Code is demo'ing the very, very long way)
+  // //INITIAL PAGE LOAD - ALL BOOKS (Code is demo'ing the very, very long way)
 // document.getElementById("root").innerHTML= `
 
 //     <div class="card" style="width: 14rem;">
