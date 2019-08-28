@@ -43,8 +43,7 @@ let Books = [
 ]
 
 //Array.map(i(aka the whole object) => console.log(${}))
-// prints all info to console, but in groups of 5
-// Books.map(i => console.log(Books[0])) 
+// Books.map(i => console.log(Books[0]))    ...prints all info to console, but in groups of 5
 
 
 
@@ -60,22 +59,29 @@ class HeaderComponent {
     }
 }
 
+
+/*[i] won't work because it will register as undefined in the console
+using a specific index pulls the right value, but it doesn't allow for resuability
+*/
 class BtnComponent {
     constructor(id) {
         this.template = `
-        <a href="#" id = showButton class="btn btn-primary">Show Plot</a>
+        <a href="#" id = "showButton" class="btn btn-primary">Show Plot</a>
         `
     }
 }
 
+// ${Books[0].id}
+/* TROUBLESHOOTING: Boolean test is proving true, but color is not changing
+*/
 
-document.addEventListener("click", function(e) {
-    console.log(e) // CONSOLE LOG E HERE IF YOU WANT TO REVIEW INSPECT
+document.addEventListener("click", function(e){
+    console.log(e.target && e.target.id == "showButton") // true
     if(e.target && e.target.id == "showButton") {
         this.template = `
         <a href="#" id = "showButton" class="btn btn-danger">Hide Plot</a>
         `
-    } else if(e.target && e.target.id !== this.id){
+    } else if(e.target && e.target.id !== "showButton"){
         this.template = `
         <a href="#" id = "hideButton" class="btn btn-primary">Show Plot</a>
         `
@@ -112,11 +118,19 @@ class BookComponent {
     }
 }
 
+
+/*
+I realize its not looping through the array - while I'm still experimenting with that,
+I was trying to take a small step and at least print items from the array into the component.
+
+Alignment in css thrown off after implementation - will look into later
+
+*/
 class BookListComponent {
     
     template = `
       <div>
-            
+      
       ${new BookComponent(Books[0].id, Books[0].cover, Books[0].title).template}
       ${new BookComponent(Books[1].id, Books[1].cover, Books[1].title).template}
       ${new BookComponent(Books[2].id, Books[2].cover, Books[2].title).template}
@@ -127,30 +141,22 @@ class BookListComponent {
     `
 }
 
-//Error Msg - cannot read property
-//${Books.map(i => new BookComponent(i).template).join('')}
-//${this.Books.map(i => new BookComponent(i).template).join('')}
+class PlotListComponent {
 
+    template = `
+        <div>
+        ${new PlotComponent(Books[0].plot).template}
+    `
+}
 
-
-
-//USE FILTER WITH ID TO PICK WHICH PLOT TO GRAB
-
-// class PlotListComponent {
-//     template = `
-//     <div>
-//     ${new PlotComponent("TEST 1").template}
-//     ${new PlotComponent("TEST 2").template}
-//     ${new PlotComponent("TEST 3").template}
-//     ${new PlotComponent("TEST 4").template}
-//     ${new PlotComponent("TEST 5").template}
-//     </div>
-//     `
-// }
+/*Error Msg - cannot read property
+    ${Books.map(i => new BookComponent(i).template).join('')}
+    ${this.Books.map(i => new BookComponent(i).template).join('')}
+*/
    
   document.getElementById('root').innerHTML = `${new HeaderComponent().template} ${new BookListComponent().template}`;
   
-  document.getElementById('descript').innerHTML = `${new PlotComponent(this.plot).template}`
+  document.getElementById('descript').innerHTML = `${new PlotComponent().template}`
 
 
 
@@ -166,7 +172,7 @@ class BookListComponent {
 
 
 
-  // //INITIAL PAGE LOAD - ALL BOOKS (Code is demo'ing the very, very long way)
+  // //INITIAL PAGE LOAD - ALL BOOKS (Code is demo'ing the very, very long way. Keeping as a point of personal reference)
 // document.getElementById("root").innerHTML= `
 
 //     <div class="card" style="width: 14rem;">
