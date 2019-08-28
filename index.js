@@ -1,44 +1,93 @@
+/*CREATE AN ARRAY OF BOOK OBJECTS OUTSIDE OF EVERYTHING
+YOU WILL NEED TO LOOP THROUGH (FOR LOOP) TO DISPLAY
+LOOK INTO .MAP
+CALL DOWN THE INDEX IN BOOKLISTCOMP. REMEBER - TITLE: Norse..
+CONSOLE - E TO REVIEW*/
+
+//ARRAY OF BOOK OBJECTS
+let Books = [
+    {
+        id: 1,
+        name: "Norse Mythology",
+        cover: "NorseMythology.jpg",
+        plot: "NORSEPLOT"
+    },
+
+    {
+        id: 2,
+        name: "Fables The Deluxe Edition Book One",
+        cover: "Fables.jpg",
+        plot: "FablesPlot"
+    },
+
+    {
+        id: 3,
+        name: "Le Morte D'Arthur",
+        cover: "leMorte.jpg",
+        plot: "ArthurPlot"
+    },
+
+    {
+        id: 4,
+        name: "The Hunt for Red October",
+        cover: "RedOctober.jpg",
+        plot: "OctoberPlot"
+    },
+
+    {
+        id: 5,
+        name: "The Fellowship of The Ring",
+        cover: "Fellowship.jpg",
+        plot: "RingPlot"
+    }
+]
+
+//Array.map(i(aka the whole object) => console.log(${}))
+// prints all info to console, but in groups of 5
+// Books.map(i => console.log(Books[0])) 
+
+
+
 class HeaderComponent {
     constructor() {
         this.template = `
     <header>    
         <div class="jumbotron">
             <h1 class="display-4">My Favorite Books!</h1>
-        </div>
+        </div>  
     </header>
         `
     }
 }
 
 class BtnComponent {
-    constructor() {
+    constructor(id) {
         this.template = `
-        <a href="#" id = ${this.openId} class="btn btn-primary">Show Plot</a>
+        <a href="#" id = showButton class="btn btn-primary">Show Plot</a>
         `
     }
 }
 
-// trying to add in the IDs. Right now the boolean won't work because things are
-//mismatched. 
+
 document.addEventListener("click", function(e) {
-    console.log(e.target && e.target.id == this.openId)
-   if(e.target && e.target.id == this.openId) {
-       this.template = `
-       <a href="#" id = ${this.closeId} class="btn btn-danger">Hide Plot</a>
-       `
-   } else if(e.target && e.target.id !== this.openId){
-    this.template = `
-    <a href="#" id = ${this.openId} class="btn btn-primary">Show Plot</a>
-    `
-   }
+    console.log(e) // CONSOLE LOG E HERE IF YOU WANT TO REVIEW INSPECT
+    if(e.target && e.target.id == "showButton") {
+        this.template = `
+        <a href="#" id = "showButton" class="btn btn-danger">Hide Plot</a>
+        `
+    } else if(e.target && e.target.id !== this.id){
+        this.template = `
+        <a href="#" id = "hideButton" class="btn btn-primary">Show Plot</a>
+        `
+    }
 })
 
 class PlotComponent {
     constructor(plot) {
         this.plot = plot;
         this.template = `
-        </div>
-        <div class=plotBox">
+    
+        <div class=descript">
             <h4> Description </h4>
             <p class="card-text">${this.plot}</p>   
         </div>
@@ -47,9 +96,9 @@ class PlotComponent {
 }
         
 class BookComponent {
-    constructor(openId, closeId, cover, title) {
-        this.openId = openId;
-        this.closeId = closeId;
+    
+    constructor(id, cover, title) {
+        this.id = id;
         this.cover = cover;
         this.title = title;
         this.template = `
@@ -57,45 +106,57 @@ class BookComponent {
         <img class="card-img-top" src=${this.cover} alt="coverArt"> 
             <div class="card-body">
             <h5 class="card-title">${this.title}</h5>
-            ${new BtnComponent().template}
+            ${new BtnComponent(this.id).template}
             </div>
-        </div>
         `
     }
 }
 
-
-/*I know I can make a main class component that combines all my classes together. Currently having an issue that when I
-do, it forces one of the books to next row. Will troubleshoot after event handler issue is resolved.*/
-
 class BookListComponent {
+    
     template = `
       <div>
-        ${new BookComponent("1A", "1B", "NorseMythology.jpg", "Norse Mythology").template}
-        ${new BookComponent("2A", "2B", "Fables.jpg", "Fables The Deluxe Edition Book One").template}
-        ${new BookComponent("3A", "3A", "leMorte.jpg", "Le Morte D'Arthur").template}
-        ${new BookComponent("4A", "4B", "RedOctober.jpg", "The Hunt for Red October").template}
-        ${new BookComponent("5A", "5B", "Fellowship.jpg", "The Fellowship of The Ring").template}
+      
+      
+
+      ${new BookComponent("1", "NorseMythology.jpg", "Norse Mythology").template}
+      ${new BookComponent("2", "Fables.jpg", "Fables The Deluxe Edition Book One").template}
+      ${new BookComponent("3", "leMorte.jpg", "Le Morte D'Arthur").template}
+      ${new BookComponent("4", "RedOctober.jpg", "The Hunt for Red October").template}
+      ${new BookComponent("5", "Fellowship.jpg", "The Fellowship of The Ring").template}
+
       </div>
     `
 }
 
+//This works to an extend - but its still going to pull undefined and broken pictures until I
+//figure the way to get the array info down
+//${Books.map(i => new BookComponent(i).template).join('')}
+
+//Error msg: Cannot read property 'map' undefined.
+//${this.Books.map(i => new BookComponent(i).template).join('')}
+//Books.map(i => console.log(Books[0])) 
+
+
+
+
 //USE FILTER WITH ID TO PICK WHICH PLOT TO GRAB
 
-class PlotListComponent {
-    template = `
-    <div>
-    ${new PlotComponent("TEST 1").template}
-    ${new PlotComponent("TEST 2").template}
-    ${new PlotComponent("TEST 3").template}
-    ${new PlotComponent("TEST 4").template}
-    ${new PlotComponent("TEST 5").template}
-    </div>
-    `
-}
+// class PlotListComponent {
+//     template = `
+//     <div>
+//     ${new PlotComponent("TEST 1").template}
+//     ${new PlotComponent("TEST 2").template}
+//     ${new PlotComponent("TEST 3").template}
+//     ${new PlotComponent("TEST 4").template}
+//     ${new PlotComponent("TEST 5").template}
+//     </div>
+//     `
+// }
    
   document.getElementById('root').innerHTML = `${new HeaderComponent().template} ${new BookListComponent().template}`;
-  document.getElementById('descript').innerHTML = `${new PlotListComponent().template}`
+  
+  document.getElementById('descript').innerHTML = `${new PlotComponent(this.plot).template}`
 
 
 
