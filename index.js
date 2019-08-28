@@ -8,35 +8,35 @@ CONSOLE - E TO REVIEW*/
 let Books = [
     {
         id: 1,
-        name: "Norse Mythology",
+        title: "Norse Mythology",
         cover: "NorseMythology.jpg",
         plot: "NORSEPLOT"
     },
 
     {
         id: 2,
-        name: "Fables The Deluxe Edition Book One",
+        title: "Fables The Deluxe Edition Book One",
         cover: "Fables.jpg",
         plot: "FablesPlot"
     },
 
     {
         id: 3,
-        name: "Le Morte D'Arthur",
+        title: "Le Morte D'Arthur",
         cover: "leMorte.jpg",
         plot: "ArthurPlot"
     },
 
     {
         id: 4,
-        name: "The Hunt for Red October",
+        title: "The Hunt for Red October",
         cover: "RedOctober.jpg",
         plot: "OctoberPlot"
     },
 
     {
         id: 5,
-        name: "The Fellowship of The Ring",
+        title: "The Fellowship of The Ring",
         cover: "Fellowship.jpg",
         plot: "RingPlot"
     }
@@ -116,26 +116,20 @@ class BookListComponent {
     
     template = `
       <div>
-      
-      
-
-      ${new BookComponent("1", "NorseMythology.jpg", "Norse Mythology").template}
-      ${new BookComponent("2", "Fables.jpg", "Fables The Deluxe Edition Book One").template}
-      ${new BookComponent("3", "leMorte.jpg", "Le Morte D'Arthur").template}
-      ${new BookComponent("4", "RedOctober.jpg", "The Hunt for Red October").template}
-      ${new BookComponent("5", "Fellowship.jpg", "The Fellowship of The Ring").template}
+            
+      ${new BookComponent(Books[0].id, Books[0].cover, Books[0].title).template}
+      ${new BookComponent(Books[1].id, Books[1].cover, Books[1].title).template}
+      ${new BookComponent(Books[2].id, Books[2].cover, Books[2].title).template}
+      ${new BookComponent(Books[3].id, Books[3].cover, Books[3].title).template}
+      ${new BookComponent(Books[4].id, Books[4].cover, Books[4].title).template}
 
       </div>
     `
 }
 
-//This works to an extend - but its still going to pull undefined and broken pictures until I
-//figure the way to get the array info down
+//Error Msg - cannot read property
 //${Books.map(i => new BookComponent(i).template).join('')}
-
-//Error msg: Cannot read property 'map' undefined.
 //${this.Books.map(i => new BookComponent(i).template).join('')}
-//Books.map(i => console.log(Books[0])) 
 
 
 
